@@ -6,6 +6,21 @@
  * @package   CETS\Conditional_Widgets
  */
 
+add_action( 'admin_enqueue_scripts', 'conditional_widgets_enqueue_assets' );
+
+function conditional_widgets_enqueue_assets( $hook ) {
+
+	$pages = apply_filters( 'conditional_widgets_admin_pages', array( 'widgets.php', 'customize.php' ) );
+
+	if ( ! in_array( $hook, $pages ) ) {
+		return;
+	}
+
+	wp_enqueue_style( 'conditional_widgets_admin_styles', plugins_url( "css/conditional-widgets-admin.css", __FILE__ ), array(), '2.1.0-dev' );
+	wp_enqueue_script( 'conditional_widgets_admin_scripts', plugins_url( "js/conditional-widgets-admin.js", __FILE__ ), 'jquery', '2.1.0-dev', true );
+
+} // END conditional_widgets_enqueue_assets()
+
 /**
  * Helper function for outputting the select boxes in the widget's form
  */
@@ -26,37 +41,6 @@ function conditional_widgets_form_show_hide_select($name, $value='', $only=false
 	echo ">Hide </option>";
 	echo "</select>";
 }	
-
-
-/**
- * Display CSS in admin head
- */
-function conditional_widgets_css_admin() {
-	
-	// CSS and Javascript for HTML HEAD
-	?>
-	<!-- Conditional Widgets Admin CSS -->
-	<link rel="stylesheet" href="<?php echo plugins_url('css/conditional-widgets-admin.css',__FILE__)?>" type="text/css" />
-
-    <?php 
-}
-
-/**
- * Enqueue javascript for Widget form
- */
-function conditional_widgets_admin_scripts() {
-	wp_enqueue_script("jquery");
-	wp_enqueue_script("conditional_widgets_admin_scripts", plugins_url('js/conditional-widgets-admin.js',__FILE__), 'jquery');
-}
-
-//only embed these on the widget page
-if (strpos($_SERVER['REQUEST_URI'], 'widgets.php')) {
-	add_action('admin_head', 'conditional_widgets_css_admin');
-	add_action('admin_print_scripts', 'conditional_widgets_admin_scripts');
-}
-
-
-
 
 /**
  * Helper function for displaying the list of checkboxes for Pages
