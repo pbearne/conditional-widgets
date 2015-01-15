@@ -1,4 +1,10 @@
 <?php
+/**
+ * @author    Jason Lemahieu and Kevin Graeme (Cooperative Extension Technology Services)
+ * @copyright Copyright (c) 2011 - 2015 Jason Lemahieu and Kevin Graeme (Cooperative Extension Technology Services)
+ * @license   http://www.gnu.org/licenses/gpl-2.0.html GPLv2
+ * @package   CETS\Conditional_Widgets
+ */
 
 add_action('in_widget_form', 'conditional_widgets_form', 10, 3);
 add_filter('widget_update_callback', 'conditional_widgets_update', 10, 2);

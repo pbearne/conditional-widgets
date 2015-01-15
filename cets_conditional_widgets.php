@@ -1,11 +1,14 @@
 <?php
 /**
 Plugin Name: Conditional Widgets
-Plugin URI: http://wordpress.org/extend/plugins/conditional-widgets/
+Plugin URI:  http://wordpress.org/extend/plugins/conditional-widgets/
 Description: Grants users advanced control over which pages and categories each widget is displayed on
-Version: 2.0.5
-Author: Jason Lemahieu and Kevin Graeme (Cooperative Extension Technology Services)
-License: GPLv2
+Version:     2.1.0-dev
+Author:      Jason Lemahieu and Kevin Graeme (Cooperative Extension Technology Services)
+License:     GPLv2
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: conditional-widgets
+Domain Path: /languages
 */
 
 /*

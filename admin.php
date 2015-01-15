@@ -1,4 +1,10 @@
 <?php
+/**
+ * @author    Jason Lemahieu and Kevin Graeme (Cooperative Extension Technology Services)
+ * @copyright Copyright (c) 2011 - 2015 Jason Lemahieu and Kevin Graeme (Cooperative Extension Technology Services)
+ * @license   http://www.gnu.org/licenses/gpl-2.0.html GPLv2
+ * @package   CETS\Conditional_Widgets
+ */
 
 /**
  * Helper function for outputting the select boxes in the widget's form
