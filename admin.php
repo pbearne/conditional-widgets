@@ -1,10 +1,5 @@
 <?php
 
-require_once( dirname(__FILE__) . '/update.php');
-require_once( dirname(__FILE__) . '/walkers.php');
-require_once( dirname(__FILE__) . '/form.php');
-
-
 /**
  * Helper function for outputting the select boxes in the widget's form
  */

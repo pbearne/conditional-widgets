@@ -45,6 +45,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 if (is_admin()) {
 	require_once( dirname(__FILE__) . '/admin.php');
+	require_once( dirname(__FILE__) . '/update.php');
+	require_once( dirname(__FILE__) . '/form.php');
+	require_once( dirname(__FILE__) . '/includes/class-walker-category-checklist.php');
+	require_once( dirname(__FILE__) . '/includes/class-walker-page-checklist.php');
 } else {
 	require_once( dirname(__FILE__) . '/logic.php');
 }
