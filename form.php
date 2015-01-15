@@ -26,7 +26,7 @@ function conditional_widgets_form($widget, $return, $instance) {
 
 	?>
 		
-	<div id="cets-conditional-widget">	
+	<div class="cets-conditional-widget">
 		<div class="conditional-widget-top">
         	<div class="conditional-widget-title-action">
             	<a href="#" id="conditional-widget-toggle-wrap-<?php print $widget->id ?>" onclick="conditional_widgets_form_toggle('conditional-widget-form-<?php print $widget->id; ?>'); return false;"></a>
