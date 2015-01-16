@@ -77,6 +77,7 @@
   font-size: 12px;
 }
 .cets-conditional-widget span.cw_sub_checkbox {
+  display: block;
   margin-left: 14px;
 }
 .cets-conditional-widget div.conditional-widgets-selection-list li {
@@ -84,7 +85,7 @@
 }
 .cets-conditional-widget div.conditional-widget-form {
   display: none;
-  padding: 12px;
+  padding: 0 12px;
   border-top: 1px solid #DFDFDF;
 }
 .cets-conditional-widget .conditional-widgets-active {

@@ -6,12 +6,12 @@
  * @package   CETS\Conditional_Widgets
  */
 
-add_filter('widget_display_callback', 'conditional_widgets_widget');
+add_filter( 'widget_display_callback', 'conditional_widgets_widget' );
 
 /**
  * Determine whether or not this widget should be displayed on this page request
  */
-function conditional_widgets_widget($instance) {
+function conditional_widgets_widget( $instance ) {
 	
 	/* variables we have access to
 	$instance['cw_home_enable_checkbox']
@@ -47,7 +47,7 @@ function conditional_widgets_widget($instance) {
 	global $wp_query;
 	$qvars = $wp_query->query_vars;
 
-	$type_tax_pairs = apply_filters('conditional_widgets_type_tax_pairs', array());
+	$type_tax_pairs = apply_filters( 'conditional_widgets_type_tax_pairs', array() );
 
 	$instance = conditional_widgets_init_instance($instance);
 	
