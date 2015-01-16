@@ -90,12 +90,16 @@ function conditional_widgets_form( $widget, $return, $instance ) {
 						if (isset($custom_subdata['selected_ids'])) {
 							$selected_ids = $custom_subdata['selected_ids'];
 						}
-
 						echo "<h6 class='conditional-widget-header conditional-widget-sub-heading'>{$taxonomy_object->labels->name}</h6>";
-						echo "<input type='checkbox' name='cw_custom[{$type}][{$tax}][enable]' value='1' " . checked($custom_subdata['enable'], 1, 0) . "> Enable " . $post_type_object->labels->singular_name . " Logic and ";
-							conditional_widgets_form_show_hide_select("cw_custom[$type][$tax][select]", $custom_subdata['select']);
-						echo " on " . $post_type_object->labels->name . " in selected " . $taxonomy_object->labels->name . ":";
-
+						printf(
+							__( '%s and %s', 'conditional-widgets' ),
+							"<input type='checkbox' name='cw_custom[{$type}][{$tax}][enable]' value='1' "
+								. checked($custom_subdata['enable'], 1, 0 ) . '>'
+								. sprintf( _x( 'Enable %s Logic', '(Custom) Post Type will fill the placeholder', 'conditional-widgets' ), $post_type_object->labels->singular_name )
+								. '</label>',
+							conditional_widgets_form_show_hide_select("cw_custom[$type][$tax][select]", $custom_subdata['select'])
+								. sprintf( __( 'on %1$s in selected %2$s:', 'conditional-widgets' ), $post_type_object->labels->name, $taxonomy_object->labels->name )
+						);
 						echo "<p>";
 							echo "<span class='cw_sub_checkbox'><label>";
 								echo "<input type='checkbox' name='cw_custom[{$type}][{$tax}][all]' value='1' " . checked( $custom_subdata['all'], 1, 0 ) . " >";
@@ -105,7 +109,7 @@ function conditional_widgets_form( $widget, $return, $instance ) {
 								echo "<span class='cw_sub_checkbox'><label>";
 									echo "<input type='checkbox' name='cw_custom[{$type}][{$tax}][sub]' " . checked( $custom_subdata['sub'], 1, 0 ) . ">";
 									printf( __( 'Include sub-%s automatically', 'conditional-widgets' ), $taxonomy_object->labels->name );
-									echo "</label></span>";
+								echo "</label></span>";
 							}
 						echo "</p>";
 
@@ -118,14 +122,22 @@ function conditional_widgets_form( $widget, $return, $instance ) {
 			?>
 			<h6 class="conditional-widget-header conditional-widget-sub-heading"><?php _e( 'Pages' ); ?></h6>
 			<p>
-				<input type="checkbox" name="cw_pages_enable_checkbox" <?php checked($instance['cw_pages_enable_checkbox']); ?>> <?php _e( 'Enable Page Logic and ', 'conditional-widgets' ); ?>
-				<?php conditional_widgets_form_show_hide_select('cw_select_pages', $instance['cw_select_pages'], false); ?> <?php _e( 'on selected Pages:', 'conditional-widgets' ); ?><br>
+				<?php
+				printf(
+					__( '%s and %s', 'conditional-widgets' ),
+					'<label><input type="checkbox" name="cw_pages_enable_checkbox" '
+						. checked( $instance['cw_pages_enable_checkbox'] )
+						. '>'
+						. sprintf( _x( 'Enable %s Logic', '(Custom) Post Type will fill the placeholder', 'conditional-widgets' ), __( 'Page' ) )
+						. '</label>',
+					conditional_widgets_form_show_hide_select( 'cw_select_pages', $instance['cw_select_pages'], false )
+						. __( 'on selected Pages:', 'conditional-widgets' )
+				);
+				if ( ! isset( $instance['cw_pages_all'] ) ) {
+					$instance['cw_pages_all'] = 0;
+				}
+				?>
 				<span class="cw_sub_checkbox">
-					<?php
-					if ( ! isset( $instance['cw_pages_all'] ) ) {
-						$instance['cw_pages_all'] = 0;
-					}
-					?>
 					<label>
 						<input type="checkbox" name="cw_pages_all" value="1" <?php checked( $instance['cw_pages_all'] ); ?>>
 						<?php _e( 'ALL pages (or select below)', 'conditional-widgets' ); ?>
@@ -201,9 +213,7 @@ function conditional_widgets_form( $widget, $return, $instance ) {
 
 	</div> <!-- /.cets-conditional-widgets -->
 	<?php
-}  // /function form()
-
-
+}  // /function conditional_widgets_form()
 
 /**
  * Process the form submission. (Save settings.)
@@ -275,7 +285,7 @@ function conditional_widgets_update($new_instance, $old_instance) {
 
 	return $instance;
 
-}
+} // /function conditional_widgets_update()
 
 function cets_conditional_widgets_instance_is_active( $instance ) {
 
@@ -296,4 +306,4 @@ function cets_conditional_widgets_instance_is_active( $instance ) {
 
 	return false;
 
-}
+} // /function cets_conditional_widgets_instance_is_active()
