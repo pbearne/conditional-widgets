@@ -6,7 +6,9 @@
  * @package   CETS\Conditional_Widgets
  */
 
-add_action( 'admin_enqueue_scripts', 'conditional_widgets_enqueue_assets' );
+/** Actions ***********************************************************/
+add_action( 'plugins_loaded',        'conditional_widgets_load_plugin_textdomain' );
+add_action( 'admin_enqueue_scripts', 'conditional_widgets_enqueue_assets'         );
 
 function conditional_widgets_enqueue_assets( $hook ) {
 
@@ -21,6 +23,27 @@ function conditional_widgets_enqueue_assets( $hook ) {
 
 } // END conditional_widgets_enqueue_assets()
 
+/**
+ * Load the plugin's textdomain hooked to 'plugins_loaded'.
+ *
+ * @since	1.0.0
+ * @access	public
+ *
+ * @see		load_plugin_textdomain()
+ * @see		plugin_basename()
+ * @action	plugins_loaded
+ *
+ * @return	void
+ */
+function conditional_widgets_load_plugin_textdomain() {
+
+	load_plugin_textdomain(
+		'conditional-widgets',
+		false,
+		dirname( plugin_basename( __FILE__ ) ) . '/languages/'
+	);
+
+}  // END load_plugin_textdomain()
 /**
  * Helper function for outputting the select boxes in the widget's form
  */
