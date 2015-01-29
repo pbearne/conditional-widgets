@@ -51,18 +51,17 @@ function conditional_widgets_form_show_hide_select( $name, $value = '', $only = 
 	echo "<select name=$name>";
 		echo "<option value='1' ";
 		selected( $value, 1, true );
-		echo ">" . __( 'Show', 'conditional-widgets') . "</option>";
+		echo ">" . __( 'Show', 'conditional-widgets' ) . "</option>";
 	
 	if ( $only ) {
 		echo "<option value='2' ";
 		selected( $value, 2, true );
-		echo ">" . __( 'Show only', 'conditional-widgets') . "</option>";
-
+		echo ">" . __( 'Show only', 'conditional-widgets' ) . "</option>";
 	}
 
 		echo "<option value='0' ";
 		selected( $value, 0, true );
-		echo ">" . __( 'Hide', 'conditional-widgets') . "</option>";
+		echo ">" . __( 'Hide', 'conditional-widgets' ) . "</option>";
 	echo "</select>";
 } // /function conditional_widgets_form_show_hide_select()
 
@@ -93,7 +92,7 @@ function conditional_widgets_term_checkboxes( $tax, $type, $selected = array() )
 	);
 
 	echo "<ul class='conditional-widget-selection-list'>";
-	wp_terms_checklist( 0, $args );
+		wp_terms_checklist( 0, $args );
 	echo "</ul>";
 
 } // /function conditional_widgets_term_checkboxes()

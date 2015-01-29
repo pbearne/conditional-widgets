@@ -33,7 +33,7 @@ function conditional_widgets_form( $widget, $return, $instance ) {
             <div class="conditional-widget-title">
                 <h5><?php _e( 'Widget Display Control', 'conditional-widgets' ); ?>
                 <?php
-                if( $active ) {
+                if ( $active ) {
 					?>
 					<span class="conditional-widgets-active"><?php _e( 'ON', 'conditional-widgets' ); ?></span>
 					<?php
@@ -81,13 +81,13 @@ function conditional_widgets_form( $widget, $return, $instance ) {
 						// @TODO - validate
 					
 						// for prefilling form fields..
-						if (isset($instance['cw_custom'][$type][$tax])) {
+						if ( isset( $instance['cw_custom'][$type][$tax] ) ) {
 							$custom_subdata = $instance['cw_custom'][$type][$tax];
 						} else {
 							$custom_subdata = conditional_widgets_get_default_custom_subdata();
 						}
 
-						if (isset($custom_subdata['selected_ids'])) {
+						if ( isset( $custom_subdata['selected_ids'] ) ) {
 							$selected_ids = $custom_subdata['selected_ids'];
 						}
 						echo "<h6 class='conditional-widget-header conditional-widget-sub-heading'>{$taxonomy_object->labels->name}</h6>";
@@ -218,42 +218,42 @@ function conditional_widgets_form( $widget, $return, $instance ) {
 /**
  * Process the form submission. (Save settings.)
  */
-function conditional_widgets_update($new_instance, $old_instance) {
+function conditional_widgets_update( $new_instance, $old_instance ) {
 
 	$instance = $new_instance;  //save old data, and only change the following stuff:
 
-	//home
-	$instance['cw_home_enable_checkbox'] = isset($_POST['cw_home_enable_checkbox']) ? 1:0;
-	$instance['cw_select_home_page'] = $_POST['cw_select_home_page'];
+	// home
+	$instance['cw_home_enable_checkbox'] = isset($_POST['cw_home_enable_checkbox']) ? 1 : 0;
+	$instance['cw_select_home_page']     = $_POST['cw_select_home_page'];
 
 
 	// custom types, including posts and categories - since 1.9
-	$type_tax_pairs = apply_filters('conditional_widgets_type_tax_pairs', array());
+	$type_tax_pairs = apply_filters( 'conditional_widgets_type_tax_pairs', array() );
 
-	foreach($type_tax_pairs as $pair) {
+	foreach ( $type_tax_pairs as $pair ) {
 
 		// todo - validate
 		$type = $pair['type'];
-		$tax = $pair['tax'];
+		$tax  = $pair['tax'];
 
 		$custom_subdata = $_POST['cw_custom'][$type][$tax];
 
-		if (!isset($instance['cw_custom'])) {
+		if ( ! isset( $instance['cw_custom'] ) ) {
 			$instance['cw_custom'] = array();
 		}
-		if (!isset($instance['cw_custom'][$type])) {
+		if ( ! isset( $instance['cw_custom'][$type] ) ) {
 			$instance['cw_custom'][$type] = array();
 		}
-		if (!isset($instance['cw_custom'][$type][$tax])) {
+		if ( ! isset( $instance['cw_custom'][$type][$tax] ) ) {
 			$instance['cw_custom'][$type][$tax] = array();
 		}
 
-		$instance['cw_custom'][$type][$tax]['enable'] = isset($custom_subdata['enable']) ? 1:0;
-		$instance['cw_custom'][$type][$tax]['all']    = isset($custom_subdata['all']) ? 1 : 0;
-		$instance['cw_custom'][$type][$tax]['sub']    = isset($custom_subdata['sub']) ? 1 : 0;
+		$instance['cw_custom'][$type][$tax]['enable'] = isset( $custom_subdata['enable'] ) ? 1 : 0;
+		$instance['cw_custom'][$type][$tax]['all']    = isset( $custom_subdata['all']    ) ? 1 : 0;
+		$instance['cw_custom'][$type][$tax]['sub']    = isset( $custom_subdata['sub']    ) ? 1 : 0;
 		$instance['cw_custom'][$type][$tax]['select'] = $custom_subdata['select'];
 
-		if (isset($custom_subdata['selected_ids'])) {
+		if ( isset( $custom_subdata['selected_ids'] ) ) {
 			$instance['cw_custom'][$type][$tax]['selected_ids'] = $custom_subdata['selected_ids'];
 		} else {
 			$instance['cw_custom'][$type][$tax]['selected_ids'] = '';
@@ -262,26 +262,26 @@ function conditional_widgets_update($new_instance, $old_instance) {
 	}
 
 	//pages
-	$instance['cw_pages_enable_checkbox'] = isset($_POST['cw_pages_enable_checkbox']) ? 1:0;
-	$instance['cw_select_pages'] = $_POST['cw_select_pages'];
-	$instance['cw_pages_sub_checkbox'] = isset($_POST['cw_pages_sub_checkbox']) ? 1:0;
+	$instance['cw_pages_enable_checkbox'] = isset( $_POST['cw_pages_enable_checkbox'] ) ? 1 : 0;
+	$instance['cw_select_pages']          = $_POST['cw_select_pages'];
+	$instance['cw_pages_sub_checkbox']    = isset( $_POST['cw_pages_sub_checkbox']    ) ? 1 : 0;
 
-	if (isset($_POST['cw_selected_pages'])) {
+	if ( isset( $_POST['cw_selected_pages'] ) ) {
 		$instance['cw_selected_pages'] = $_POST['cw_selected_pages'];
 	} else {
 		$instance['cw_selected_pages'] = '';
 	}
 
-	$instance['cw_pages_all'] = isset($_POST['cw_pages_all']) ? 1:0;
+	$instance['cw_pages_all'] = isset( $_POST['cw_pages_all'] ) ? 1 : 0;
 
 	// utility - since 1.0.4
 	//404, search, archive
-	$instance['cw_posts_page_hide']     = isset($_POST['cw_posts_page_hide_checkbox']) ? 1:0;
-	$instance['cw_404_hide']            = isset($_POST['cw_404_hide_checkbox']) ? 1:0;
-	$instance['cw_search_hide']         = isset($_POST['cw_search_hide_checkbox']) ? 1:0;
-	$instance['cw_date_archive_hide']   = isset($_POST['cw_date_archive_hide_checkbox']) ? 1:0;
-	$instance['cw_author_archive_hide'] = isset($_POST['cw_author_archive_hide_checkbox']) ? 1:0;
-	$instance['cw_tag_archive_hide']    = isset($_POST['cw_tag_archive_hide_checkbox']) ? 1:0;
+	$instance['cw_posts_page_hide']     = isset( $_POST['cw_posts_page_hide_checkbox']     ) ? 1 : 0;
+	$instance['cw_404_hide']            = isset( $_POST['cw_404_hide_checkbox']            ) ? 1 : 0;
+	$instance['cw_search_hide']         = isset( $_POST['cw_search_hide_checkbox']         ) ? 1 : 0;
+	$instance['cw_date_archive_hide']   = isset( $_POST['cw_date_archive_hide_checkbox']   ) ? 1 : 0;
+	$instance['cw_author_archive_hide'] = isset( $_POST['cw_author_archive_hide_checkbox'] ) ? 1 : 0;
+	$instance['cw_tag_archive_hide']    = isset( $_POST['cw_tag_archive_hide_checkbox']    ) ? 1 : 0;
 
 	return $instance;
 
@@ -291,15 +291,23 @@ function cets_conditional_widgets_instance_is_active( $instance ) {
 
 	$type_tax_pairs = apply_filters( 'conditional_widgets_type_tax_pairs', array() );
 
-
-	if ($instance['cw_home_enable_checkbox'] ||  $instance['cw_pages_enable_checkbox'] || $instance['cw_404_hide'] || $instance['cw_search_hide'] || $instance['cw_author_archive_hide'] || $instance['cw_date_archive_hide'] || $instance['cw_tag_archive_hide'] || $instance['cw_posts_page_hide']) {
+	if (
+		$instance['cw_home_enable_checkbox']
+		|| $instance['cw_pages_enable_checkbox']
+		|| $instance['cw_404_hide']
+		|| $instance['cw_search_hide']
+		|| $instance['cw_author_archive_hide']
+		|| $instance['cw_date_archive_hide']
+		|| $instance['cw_tag_archive_hide']
+		|| $instance['cw_posts_page_hide']
+	) {
 		return true;
 	}
 
-	foreach($type_tax_pairs as $pair) {
-		$tax = $pair['tax'];
+	foreach ( $type_tax_pairs as $pair ) {
+		$tax  = $pair['tax'];
 		$type = $pair['type'];
-		if (isset($instance['cw_custom'][$type][$tax]['enable']) && $instance['cw_custom'][$type][$tax]['enable'] == 1) {
+		if ( isset( $instance['cw_custom'][$type][$tax]['enable'] ) && $instance['cw_custom'][$type][$tax]['enable'] == 1 ) {
 			return true;
 		}
 	}
