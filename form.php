@@ -1,4 +1,10 @@
 <?php
+/**
+ * @author    Jason Lemahieu and Kevin Graeme (Cooperative Extension Technology Services)
+ * @copyright Copyright (c) 2011 - 2015 Jason Lemahieu and Kevin Graeme (Cooperative Extension Technology Services)
+ * @license   http://www.gnu.org/licenses/gpl-2.0.html GPLv2
+ * @package   CETS\Conditional_Widgets
+ */
 
 add_action('in_widget_form', 'conditional_widgets_form', 10, 3);
 add_filter('widget_update_callback', 'conditional_widgets_update', 10, 2);
@@ -20,22 +26,22 @@ function conditional_widgets_form($widget, $return, $instance) {
 
 	?>
 		
-	<div id="cets-conditional-widget">	
+	<div class="cets-conditional-widget">
 		<div class="conditional-widget-top">
         	<div class="conditional-widget-title-action">
             	<a href="#" id="conditional-widget-toggle-wrap-<?php print $widget->id ?>" onclick="conditional_widgets_form_toggle('conditional-widget-form-<?php print $widget->id; ?>'); return false;"></a>
             </div>
             
             <div class="conditional-widget-title">
-                <h5><?php _e('Widget Display Control'); ?>
+                <h5><?php _e( 'Widget Display Control', 'conditional-widgets' ); ?>
                 <?php 
                 if($active) {
 					?>
-					&nbsp;<span class="conditional-widgets-active"><?php _e('ON'); ?></span>
+					&nbsp;<span class="conditional-widgets-active"><?php _e( 'ON', 'conditional-widgets' ); ?></span>
 					<?php
                 } else {
 					?>
-                    &nbsp; <span class="conditional-widgets-inactive"><?php _e('OFF'); ?></span>
+                    &nbsp; <span class="conditional-widgets-inactive"><?php _e( 'OFF', 'conditional-widgets' ); ?></span>
 					<?php }
 				?>
                 </h5>
@@ -45,11 +51,11 @@ function conditional_widgets_form($widget, $return, $instance) {
 		<div class="conditional-widget-form" id="conditional-widget-form-<?php print $widget->id; ?>">
 			
 			<p class='cw-instructions'>
-			<?php _e('Select a combination of options to control on which sections of your site this widget is shown.'); ?>
+				<?php _e( 'Select a combination of options to control on which sections of your site this widget is shown.', 'conditional-widgets' ); ?>
 			</p>
 			
 			<p>
-			<input type="checkbox" name="cw_home_enable_checkbox" <?php checked($instance['cw_home_enable_checkbox']); ?>> <?php conditional_widgets_form_show_hide_select('cw_select_home_page', $instance['cw_select_home_page'], true); ?> <?php _e('on Front Page'); ?>
+			<input type="checkbox" name="cw_home_enable_checkbox" <?php checked($instance['cw_home_enable_checkbox']); ?>> <?php conditional_widgets_form_show_hide_select('cw_select_home_page', $instance['cw_select_home_page'], true); ?> <?php _e( 'on Front Page', 'conditional-widgets' ); ?>
 			</p>
 			
 
@@ -131,22 +137,22 @@ function conditional_widgets_form($widget, $return, $instance) {
 
 
 
-			<h6 class="conditional-widget-header conditional-widget-sub-heading"><?php _e('Pages'); ?></h6>
+			<h6 class="conditional-widget-header conditional-widget-sub-heading"><?php _e( 'Pages' ); ?></h6>
 			
 			<p>
-			<input type="checkbox" name="cw_pages_enable_checkbox" <?php checked($instance['cw_pages_enable_checkbox']); ?>> <?php _e('Enable Page Logic and '); ?>
-			<?php conditional_widgets_form_show_hide_select('cw_select_pages', $instance['cw_select_pages'], false); ?> <?php _e('on selected Pages:'); ?><br>
+			<input type="checkbox" name="cw_pages_enable_checkbox" <?php checked($instance['cw_pages_enable_checkbox']); ?>> <?php _e( 'Enable Page Logic and ', 'conditional-widgets' ); ?>
+			<?php conditional_widgets_form_show_hide_select('cw_select_pages', $instance['cw_select_pages'], false); ?> <?php _e( 'on selected Pages:', 'conditional-widgets' ); ?><br>
 				<span class='cw_sub_checkbox'>
 					<?php
 					if ( ! isset($instance['cw_pages_all']) ) {
 						$instance['cw_pages_all'] = 0;
 					}
 					?>
-					<input type="checkbox" name="cw_pages_all" value="1" <?php checked($instance['cw_pages_all']); ?>> <?php _e('ALL pages (or select below)'); ?><br/>
+					<input type="checkbox" name="cw_pages_all" value="1" <?php checked($instance['cw_pages_all']); ?>> <?php _e( 'ALL pages (or select below)', 'conditional-widgets' ); ?><br/>
 				</span>
 
 				<span class='cw_sub_checkbox'>
-					<input type="checkbox" name="cw_pages_sub_checkbox" <?php checked($instance['cw_pages_sub_checkbox']); ?>> <?php _e('Include sub-pages automatically'); ?>
+					<input type="checkbox" name="cw_pages_sub_checkbox" <?php checked($instance['cw_pages_sub_checkbox']); ?>> <?php _e( 'Include sub-pages automatically', 'conditional-widgets' ); ?>
 				</span>
 			</p>
 			
@@ -162,33 +168,33 @@ function conditional_widgets_form($widget, $return, $instance) {
 			?>
 			</div>
 		
-			<h6 class="conditional-widget-header conditional-widget-sub-heading"><?php _e('Special Page Options'); ?></h6>
+			<h6 class="conditional-widget-header conditional-widget-sub-heading"><?php _e( 'Special Page Options', 'conditional-widgets' ); ?></h6>
 			
 			<ul class="conditional-widgets-special-page-option-list">
 				<!-- posts page -->
 				<li>
-					<input type="checkbox" name="cw_posts_page_hide_checkbox" <?php checked($instance['cw_posts_page_hide']); ?>>	<?php _e('Hide on Posts Page (when using a static front page)'); ?>
+					<input type="checkbox" name="cw_posts_page_hide_checkbox" <?php checked($instance['cw_posts_page_hide']); ?>>	<?php _e( 'Hide on Posts Page (when using a static front page)', 'conditional-widgets' ); ?>
 				</li>
 				
 				<!-- 404 -->
 				<li>
-					<input type="checkbox" name="cw_404_hide_checkbox" <?php checked($instance['cw_404_hide']); ?>>	<?php _e('Hide on 404s (Page Not Found)'); ?>
+					<input type="checkbox" name="cw_404_hide_checkbox" <?php checked($instance['cw_404_hide']); ?>>	<?php _e( 'Hide on 404s (Page Not Found)', 'conditional-widgets' ); ?>
 				</li>
 				
 				<!-- search results -->
 				<li>
-					<input type="checkbox" name="cw_search_hide_checkbox" <?php checked($instance['cw_search_hide']); ?>>	<?php _e('Hide when displaying Search Results'); ?>
+					<input type="checkbox" name="cw_search_hide_checkbox" <?php checked($instance['cw_search_hide']); ?>>	<?php _e( 'Hide when displaying Search Results', 'conditional-widgets' ); ?>
 				</li>
 			
 				<!-- archives -->
 				<li>
-					<input type="checkbox" name="cw_author_archive_hide_checkbox" <?php checked($instance['cw_author_archive_hide']); ?>>	<?php _e('Hide on Author Archives'); ?>
+					<input type="checkbox" name="cw_author_archive_hide_checkbox" <?php checked($instance['cw_author_archive_hide']); ?>>	<?php _e( 'Hide on Author Archives', 'conditional-widgets' ); ?>
 				</li>
 				<li>
-					<input type="checkbox" name="cw_date_archive_hide_checkbox" <?php checked($instance['cw_date_archive_hide']); ?>>	<?php _e('Hide on Date Archives'); ?>
+					<input type="checkbox" name="cw_date_archive_hide_checkbox" <?php checked($instance['cw_date_archive_hide']); ?>>	<?php _e( 'Hide on Date Archives', 'conditional-widgets' ); ?>
 				</li>
 				<li>
-					<input type="checkbox" name="cw_tag_archive_hide_checkbox" <?php checked($instance['cw_tag_archive_hide']); ?>>	<?php _e('Hide on Tag Archives'); ?>
+					<input type="checkbox" name="cw_tag_archive_hide_checkbox" <?php checked($instance['cw_tag_archive_hide']); ?>>	<?php _e( 'Hide on Tag Archives', 'conditional-widgets' ); ?>
 				</li>
 				
 				
