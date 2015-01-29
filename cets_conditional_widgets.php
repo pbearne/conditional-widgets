@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		- refactored and split into a few separate files
 */
 
-if (is_admin()) {
+if ( is_admin() ) {
 	require_once( dirname(__FILE__) . '/admin.php');
 	require_once( dirname(__FILE__) . '/update.php');
 	require_once( dirname(__FILE__) . '/form.php');
@@ -59,12 +59,13 @@ add_filter( 'conditional_widgets_type_tax_pairs', 'conditional_widgets_add_post_
 function conditional_widgets_add_post_categories( $pairs ) {
 	$pairs[] = array( 'type' => 'post', 'tax' => 'category', );
 	return $pairs;
-}
+} // /function conditional_widgets_add_post_categories()
 
 /**
  * Initializes a fresh widget instance
  */
-function conditional_widgets_init_instance($instance) {
+function conditional_widgets_init_instance( $instance ) {
+
 	//single values
 	$keys = array(
 		'cw_home_enable_checkbox',
@@ -79,8 +80,9 @@ function conditional_widgets_init_instance($instance) {
 		'cw_tag_archive_hide',
 		'cw_posts_page_hide',
 	);
+
 	foreach ( $keys as $key ) {
-		if ( !isset( $instance[ $key ] ) ) {
+		if ( ! isset( $instance[ $key ] ) ) {
 			$instance[ $key ] = '';
 		}
 	}
@@ -93,8 +95,10 @@ function conditional_widgets_init_instance($instance) {
 			$instance[ $arraykey ] = array();
 		}
 	}
+
 	return $instance;
-}
+
+} // /function conditional_widgets_init_instance()
 
 function conditional_widgets_get_default_custom_subdata() {
 	$custom_subdata = array(
@@ -104,4 +108,4 @@ function conditional_widgets_get_default_custom_subdata() {
 		'all'          => 0,
 		'sub'          => 0,
 	);
-}
+} // /function conditional_widgets_get_default_custom_subdata()
