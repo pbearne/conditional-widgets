@@ -18,25 +18,10 @@ function conditional_widgets_enqueue_assets( $hook ) {
 		return;
 	}
 
-	add_action( 'admin_print_footer_scripts', 'conditional_widgets_add_js' );
-
 	wp_enqueue_style( 'conditional_widgets_admin_styles', plugins_url( "css/conditional-widgets-admin.css", __FILE__ ), array(), '2.1.0-dev' );
+	wp_enqueue_script( 'conditional_widgets_admin_scripts', plugins_url( "js/conditional-widgets-admin.js", __FILE__ ), 'jquery', '2.1.0-dev', true );
 
 } // END conditional_widgets_enqueue_assets()
-
-/**
- * Inject javascript into footerp
- *
- * @since	2.1.0
- *
- * @return	string
- */
-function conditional_widgets_add_js() { ?>
-<script type='text/javascript'>function conditional_widgets_form_toggle(divID) { jQuery("#"  divID).slideToggle("slow"); }</script>
-<?php
-} // /function add_js()
-
-/**
 
 /**
  * Load the plugin's textdomain hooked to 'plugins_loaded'.
