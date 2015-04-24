@@ -21,7 +21,7 @@ function conditional_widgets_enqueue_assets( $hook ) {
 	wp_enqueue_style( 'conditional_widgets_admin_styles', plugins_url( "css/conditional-widgets-admin.css", __FILE__ ), array(), '2.1.0-dev' );
 	wp_enqueue_script( 'conditional_widgets_admin_scripts', plugins_url( "js/conditional-widgets-admin.js", __FILE__ ), 'jquery', '2.1.0-dev', true );
 
-} // END conditional_widgets_enqueue_assets()
+} // /function conditional_widgets_enqueue_assets()
 
 /**
  * Load the plugin's textdomain hooked to 'plugins_loaded'.
@@ -43,47 +43,56 @@ function conditional_widgets_load_plugin_textdomain() {
 		dirname( plugin_basename( __FILE__ ) ) . '/languages/'
 	);
 
-}  // END load_plugin_textdomain()
+}  // /function load_plugin_textdomain()
 /**
  * Helper function for outputting the select boxes in the widget's form
  */
-function conditional_widgets_form_show_hide_select($name, $value='', $only=false) {
+function conditional_widgets_form_show_hide_select( $name, $value = '', $only = false ) {
 	echo "<select name=$name>";
-	echo "<option value='1' ";
-	if ($value == 1) {echo "selected='selected'";}
-	echo ">Show </option>";
+		echo "<option value='1' ";
+		selected( $value, 1, true );
+		echo ">" . __( 'Show', 'conditional-widgets' ) . "</option>";
 	
-	if ($only) {
+	if ( $only ) {
 		echo "<option value='2' ";
-		if ($value == 2) {echo "selected='selected'";}
-		echo "> Show only</option>";
+		selected( $value, 2, true );
+		echo ">" . __( 'Show only', 'conditional-widgets' ) . "</option>";
 	}
-	
-	echo "<option value='0' ";
-	if ($value == 0) {echo "selected='selected'";}
-	echo ">Hide </option>";
+
+		echo "<option value='0' ";
+		selected( $value, 0, true );
+		echo ">" . __( 'Hide', 'conditional-widgets' ) . "</option>";
 	echo "</select>";
-}	
+} // /function conditional_widgets_form_show_hide_select()
 
 /**
  * Helper function for displaying the list of checkboxes for Pages
  */
-function conditional_widgets_page_checkboxes($selected=array()) {
-	echo "<ul class='conditional-widget-selection-list'>";
-	wp_list_pages( array( 'title_li' => null, 'walker' => new Conditional_Widgets_Walker_Page_Checklist($selected) ) );
-	echo "</ul>";
-}
+function conditional_widgets_page_checkboxes( $selected = array() ) {
 
-
-function conditional_widgets_term_checkboxes($tax, $type, $selected = array()) {
-	echo "<ul class='conditional-widget-selection-list'>";
 	$args = array(
-			'selected_cats' => $selected,
-			'checked_ontop' => false,
-			'taxonomy' => $tax,
-			'walker' => new Conditional_Widget_Walker_Category_Checklist($type, $tax),
+		'title_li' => null,
+		'walker'   => new Conditional_Widgets_Walker_Page_Checklist( $selected ),
+	);
 
-		);
-	wp_terms_checklist(0, $args);
+	echo "<ul class='conditional-widget-selection-list'>";
+	wp_list_pages( $args );
 	echo "</ul>";
-}
+
+} // /function conditional_widgets_page_checkboxes()
+
+
+function conditional_widgets_term_checkboxes( $tax, $type, $selected = array() ) {
+
+	$args = array(
+		'selected_cats' => $selected,
+		'checked_ontop' => false,
+		'taxonomy'      => $tax,
+		'walker'        => new Conditional_Widget_Walker_Category_Checklist( $type, $tax ),
+	);
+
+	echo "<ul class='conditional-widget-selection-list'>";
+		wp_terms_checklist( 0, $args );
+	echo "</ul>";
+
+} // /function conditional_widgets_term_checkboxes()
