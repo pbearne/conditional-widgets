@@ -111,4 +111,7 @@ function conditional_widgets_get_default_custom_subdata() {
 		'all'          => 0,
 		'sub'          => 0,
 	);
+	
+	return $custom_subdata;
+	
 } // /function conditional_widgets_get_default_custom_subdata()
