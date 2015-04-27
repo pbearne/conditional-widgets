@@ -32,7 +32,7 @@ function conditional_widgets_enqueue_assets( $hook ) {
  * @return	string
  */
 function conditional_widgets_add_js() { ?>
-<script type='text/javascript'>function conditional_widgets_form_toggle(divID) { jQuery("#"  divID).slideToggle("slow"); }</script>
+<script type='text/javascript'>function conditional_widgets_form_toggle(divID) { jQuery("#" + divID).slideToggle("slow"); }</script>
 <?php
 } // /function add_js()
 
