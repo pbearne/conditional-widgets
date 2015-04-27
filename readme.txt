@@ -9,7 +9,7 @@ Easily control the display of widgets based on pages or categories
 
 == Description ==
 
-IMPORTANT: If upgrading a MultiSite installation from 1.x to 2.x, you'll need to visit the dashboard of each site in order to make Conditional Widgets function on that site.  If you have a large number of sites, consider using this small plugin to assist you in doing so: https://github.com/MadtownLems/cets-multisite-dashboard-crawler
+IMPORTANT: If upgrading a MultiSite installation from Conditional Widgets 1.x to 2.x, you'll need to visit the dashboard of each site in order to make Conditional Widgets function on that site.  If you have a large number of sites, consider using this small plugin to assist you in doing so: https://github.com/MadtownLems/cets-multisite-dashboard-crawler
 
 This plugin adds a form to each widget on the Widgets panel which allows users to choose which pages and/or categories the widget is either displayed on or hidden from.
 
