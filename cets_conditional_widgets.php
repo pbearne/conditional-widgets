@@ -3,7 +3,7 @@
 Plugin Name: Conditional Widgets
 Plugin URI:  http://wordpress.org/extend/plugins/conditional-widgets/
 Description: Grants users advanced control over which pages and categories each widget is displayed on
-Version:     2.1.0-dev
+Version:     2.1
 Author:      Jason Lemahieu and Kevin Graeme (Cooperative Extension Technology Services)
 License:     GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -28,6 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 /* CHANGELOG 
+	= 2.1 =
+		* Major update of code formatting to better align with WordPress style and guidelines - props @cFoellmann
+		* Support Conditional Widgets toggle JavaScript on the Customize screen
 	2.0.5
 	    - Further (properly?) addressed strict warnings with walker arguments
 	2.0.4
