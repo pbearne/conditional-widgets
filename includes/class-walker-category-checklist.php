@@ -38,7 +38,7 @@ class Conditional_Widget_Walker_Category_Checklist extends Walker {
 	function start_el( &$output, $category, $depth = 0, $args = array(), $current_object_id = 0 ) {
 		extract( $args );
 
-		$name = "cw_custom[ $this->type ][ $this->tax ][selected_ids][]";
+		$name = "cw_custom[{$this->type}][{$this->tax}][selected_ids][]";
 		$output .= "\n<li>" . '<label class="selectit"><input value="' . $category->term_id . '" type="checkbox" name="' . $name . '"' . checked( in_array( $category->term_id, $selected_cats ), true, false ) . disabled( empty( $args['disabled'] ), false, false ) . ' /> ' . esc_html( $category->name ) . '</label>';
 	}
 
