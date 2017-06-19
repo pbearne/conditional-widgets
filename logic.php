@@ -12,7 +12,7 @@ add_filter( 'widget_display_callback', 'conditional_widgets_widget' );
  * Determine whether or not this widget should be displayed on this page request
  */
 function conditional_widgets_widget( $instance ) {
-	
+
 	/* variables we have access to
 	$instance['cw_home_enable_checkbox']
 	$instance['cw_select_home_page']  //show == 1, hide == 0, show only on home == 2
@@ -44,7 +44,7 @@ function conditional_widgets_widget( $instance ) {
 	$instance['cw_mobile_hide'] - since 2.2
 	
 	*/
-	
+
 	// First, process 'other' options which take precedence over the following
 
 	/* is_mobile */
@@ -68,7 +68,7 @@ function conditional_widgets_widget( $instance ) {
 	$type_tax_pairs = apply_filters( 'conditional_widgets_type_tax_pairs', array() );
 
 	$instance = conditional_widgets_init_instance( $instance );
-	
+
 	if ( $instance['cw_home_enable_checkbox'] ) {
 		//box checked for home page logic takes priority by processing first
 		switch ( $instance['cw_select_home_page'] ) {
@@ -91,16 +91,54 @@ function conditional_widgets_widget( $instance ) {
 				break;
 		}
 	}
-	
+
+	// custom post types
+	if ( isset( $instance['cw_selected_post_types'] ) ) {
+
+		$arr_post_types = $instance['cw_selected_post_types'];
+		if ( ! is_array( $arr_post_types ) ) {
+			$arr_post_types = array();
+		}
+
+		if ( $instance['cw_post_types_enable_checkbox'] ) {
+			$current_post_type = get_post_type();
+
+			$match = false;
+			if ( in_array( $current_post_type, $arr_post_types,true ) ) {
+				$match = true;
+			}
+
+			if ( $match ) {
+				//we matched a page
+				if ( 1 === (int) $instance['cw_select_post_types'] ) {
+					//and we're showing on matched pages - SHOW
+					return $instance;
+				} else {
+					//and we're hiding on matched pages - so HIDE
+					return false;
+				}
+			} else {
+				//we did NOT match a page
+				if ( 1 === (int) $instance['cw_select_post_types'] ) {
+					//and we're telling it to show on matched pages - so HIDE
+					return false;
+				} else {
+					//we didn't match a page, and we told it to hide on those pages - so SHOW
+					return $instance;
+				}
+			}
+		} // End if().
+	} // End if().
+
+
 	$arr_pages = $instance['cw_selected_pages'];
 	if ( ! is_array( $arr_pages ) ) {
 		$arr_pages = array();
 	}
 
 	if ( $instance['cw_pages_enable_checkbox'] && is_page() ) {
-		
+
 		// We care about pages and this is a page.
-		
 
 
 		// see if we are using same logic for ALL pages
@@ -115,7 +153,7 @@ function conditional_widgets_widget( $instance ) {
 		}
 
 		$current_page_id = $wp_query->post->ID;
-		
+
 		//see if we care about subpages
 		if ( $instance['cw_pages_sub_checkbox'] == 1 ) {
 			foreach ( $arr_pages as $page ) {
@@ -152,7 +190,7 @@ function conditional_widgets_widget( $instance ) {
 			}
 		}
 	} //is_page && we care
-	
+
 
 	// is individual post of any type (other than page)
 	if ( is_single() ) {
@@ -160,9 +198,9 @@ function conditional_widgets_widget( $instance ) {
 		$current_post_id = $wp_query->post->ID;
 		$type            = get_post_type();
 
-		if ( isset( $instance['cw_custom'][$type] ) ) {
+		if ( isset( $instance['cw_custom'][ $type ] ) ) {
 
-			$subdata_type = $instance['cw_custom'][$type];
+			$subdata_type = $instance['cw_custom'][ $type ];
 
 
 			foreach ( $subdata_type as $tax => $subdata_type_tax ) {
@@ -186,7 +224,7 @@ function conditional_widgets_widget( $instance ) {
 				$terms_to_match = $subdata_type_tax['selected_ids'];
 
 
-				if ( !is_array( $terms_to_match ) ) {
+				if ( ! is_array( $terms_to_match ) ) {
 					$terms_to_match = array();
 				}
 
@@ -340,5 +378,5 @@ function conditional_widgets_widget( $instance ) {
 
 	//default to showing
 	return $instance;
-	
+
 } // /function conditional_widgets_widget()

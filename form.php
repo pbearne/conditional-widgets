@@ -165,6 +165,33 @@ function conditional_widgets_form( $widget, $return, $instance ) {
 			conditional_widgets_page_checkboxes( $selected_pages );
 			?>
 			</div>
+            <h6 class="conditional-widget-header conditional-widget-sub-heading"><?php _e( 'Post types' ); ?></h6>
+            <p>
+				<?php
+				printf(
+					__( '%s and %s', 'conditional-widgets' ),
+					'<label><input type="checkbox" name="cw_post_types_enable_checkbox" '
+					. checked( $instance['cw_post_types_enable_checkbox'], 1, false )
+					. '>'
+					. sprintf( _x( 'Enable %s Logic', '(Custom) Post Type will fill the placeholder', 'conditional-widgets' ), __( 'Page' ) )
+					. '</label>',
+					conditional_widgets_form_show_hide_select( 'cw_select_post_types', $instance['cw_select_post_types'], false, false )
+					. __( 'on selected Post types:', 'conditional-widgets' )
+				);
+				if ( ! isset( $instance['cw_pages_all'] ) ) {
+					$instance['cw_pages_all'] = 0;
+				}
+				?>
+
+            <div class="conditional-widgets-checkbox-wrapper">
+				<?php
+				$selected_post_types = array();
+				if ( isset( $instance['cw_selected_post_types'] ) && is_array( $instance['cw_selected_post_types'] ) ) {
+					$selected_post_types = $instance['cw_selected_post_types'];
+				}
+				conditional_widgets_post_type_checkboxes( $selected_post_types );
+				?>
+            </div>
 
 			<h6 class="conditional-widget-header conditional-widget-sub-heading"><?php _e( 'Special Page Options', 'conditional-widgets' ); ?></h6>
 			<ul class="conditional-widgets-special-page-option-list">
@@ -299,6 +326,16 @@ function conditional_widgets_update( $new_instance, $old_instance ) {
 	}
 
 	$instance['cw_pages_all'] = isset( $_POST['cw_pages_all'] ) ? 1 : 0;
+
+	//post types
+	$instance['cw_post_types_enable_checkbox'] = isset( $_POST['cw_post_types_enable_checkbox'] ) ? 1 : 0;
+	$instance['cw_select_post_types']          = $_POST['cw_select_post_types'];
+
+	if ( isset( $_POST['cw_selected_post_types'] ) ) {
+		$instance['cw_selected_post_types'] = $_POST['cw_selected_post_types'];
+	} else {
+		$instance['cw_selected_post_types'] = '';
+	}
 
 	// utility - since 1.0.4
 	//404, search, archive

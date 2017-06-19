@@ -7,8 +7,8 @@
  */
 
 /** Actions ***********************************************************/
-add_action( 'plugins_loaded',        'conditional_widgets_load_plugin_textdomain' );
-add_action( 'admin_enqueue_scripts', 'conditional_widgets_enqueue_assets'         );
+add_action( 'plugins_loaded', 'conditional_widgets_load_plugin_textdomain' );
+add_action( 'admin_enqueue_scripts', 'conditional_widgets_enqueue_assets' );
 
 function conditional_widgets_enqueue_assets( $hook ) {
 
@@ -27,26 +27,28 @@ function conditional_widgets_enqueue_assets( $hook ) {
 /**
  * Inject javascript into footerp
  *
- * @since	2.1.0
+ * @since    2.1.0
  *
- * @return	string
+ * @return    string
  */
 function conditional_widgets_add_js() { ?>
-<script type='text/javascript'>function conditional_widgets_form_toggle(divID) { jQuery("#" + divID).slideToggle("slow"); }</script>
-<?php
+    <script type='text/javascript'>function conditional_widgets_form_toggle(divID) {
+            jQuery("#" + divID).slideToggle("slow");
+        }</script>
+	<?php
 } // /function add_js()
 
 /**
  * Load the plugin's textdomain hooked to 'plugins_loaded'.
  *
- * @since	1.0.0
- * @access	public
+ * @since    1.0.0
+ * @access    public
  *
- * @see		load_plugin_textdomain()
- * @see		plugin_basename()
- * @action	plugins_loaded
+ * @see        load_plugin_textdomain()
+ * @see        plugin_basename()
+ * @action    plugins_loaded
  *
- * @return	void
+ * @return    void
  */
 function conditional_widgets_load_plugin_textdomain() {
 
@@ -61,27 +63,28 @@ function conditional_widgets_load_plugin_textdomain() {
  * Helper function for outputting the select boxes in the widget's form
  */
 function conditional_widgets_form_show_hide_select( $name, $value = '', $only = false, $echo = false ) {
-	
+
 	$o = ''; //output
 
 	$o .= "<select name=$name>";
-		$o .= "<option value='1' ";
-		$o .= selected( $value, 1, false );
-		$o .= ">" . __( 'Show', 'conditional-widgets' ) . "</option>";
-	
+	$o .= "<option value='1' ";
+	$o .= selected( $value, 1, false );
+	$o .= ">" . __( 'Show', 'conditional-widgets' ) . "</option>";
+
 	if ( $only ) {
 		$o .= "<option value='2' ";
 		$o .= selected( $value, 2, false );
 		$o .= ">" . __( 'Show only', 'conditional-widgets' ) . "</option>";
 	}
 
-		$o .= "<option value='0' ";
-		$o .= selected( $value, 0, false );
-		$o .= ">" . __( 'Hide', 'conditional-widgets' ) . "</option>";
+	$o .= "<option value='0' ";
+	$o .= selected( $value, 0, false );
+	$o .= ">" . __( 'Hide', 'conditional-widgets' ) . "</option>";
 	$o .= "</select>";
 
 	if ( $echo ) {
 		echo $o;
+
 		return '';
 	} else {
 		return $o;
@@ -116,7 +119,41 @@ function conditional_widgets_term_checkboxes( $tax, $type, $selected = array() )
 	);
 
 	echo "<ul class='conditional-widget-selection-list'>";
-		wp_terms_checklist( 0, $args );
+	wp_terms_checklist( 0, $args );
 	echo "</ul>";
 
 } // /function conditional_widgets_term_checkboxes()
+
+/**
+ * Helper function for displaying the list of checkboxes for Pages
+ */
+function conditional_widgets_post_type_checkboxes( $selected = array() ) {
+
+	echo '<ul class="conditional-widget-selection-list">';
+	$args = array(
+		'public'   => true,
+		'_builtin' => false
+	);
+
+	$output   = 'objects'; // names or objects, note names is the default
+	$operator = 'and'; // 'and' or 'or'
+
+	$post_types = get_post_types( $args, $output, $operator );
+	//var_dump( $post_types );
+
+	foreach ( $post_types as $index => $post_type ) {
+
+		echo "\n<li>";
+		echo'<label class="selectit">';
+		printf( '<input value="%1$s" type="checkbox" name="cw_selected_post_types[]" %2$s /> %3$s</label>',
+			$index,
+			checked( in_array( $index, $selected, true ), true, false ),
+			esc_html( $post_type->label )
+		);
+		echo "</li>\n";
+	}
+
+
+	echo '</ul>';
+
+} // /function conditional_widgets_page_checkboxes()
